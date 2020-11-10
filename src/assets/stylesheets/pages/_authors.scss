@@ -1,0 +1,142 @@
+$sub-title-color:#2a3137;
+$sub-title-underline:#2b2f32;
+$yellow-color: #e59526;
+$red-color: #a22835;
+$green-color: #1B5F52;
+$blue-color:#02569c;
+$hover-color:#f5f5f5;
+$text-color:#2f343f;
+$plus-color:#184aad;
+$x-circle-color:#1c1c1c;
+$boarder-line-color:#959595;
+
+
+
+
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.sub-title{
+  font-weight: 500;
+  font-size: 2.05em;
+  border-bottom:0.05em solid $text-color;
+  text-align: left;
+  width: 100%;
+  color: $text-color;
+  margin-top: .305em;
+}
+
+.author-item{
+  font-size: 1.45em;
+  font-weight: 400;
+  color: $text-color;
+  .icon-edit{
+    color: $yellow-color;
+  }
+  .icon-trash-2{
+    color: $red-color;
+  }
+  &:hover{
+    background-color: $hover-color;
+    .author-controls{
+      i{
+        visibility:visible ;
+      }
+    }
+  }
+  .author-controls{
+    i{
+      cursor: pointer;
+      visibility: hidden;
+    }
+  }
+  .author-edit{
+    height: 1.5em;
+    margin-bottom: 10px;
+  }
+}
+
+.add-label{
+  font-weight: 550;
+  font-size: .95em;
+  cursor: pointer;
+  i{
+    color:$plus-color;
+    font-size: 1.5em;
+  }
+}
+
+.create-author{
+  width: 73%;
+  .new-author-input{
+    font-size: 1em;
+    border: 0.13em solid $boarder-line-color;
+    height: 1.9em;
+  }
+}
+
+.add-author{
+  i{
+    color: $plus-color;
+    font-size: 1.5em;
+    font-width: 400;
+    cursor: pointer;
+  }
+  span{
+    font-size: 1.0em;
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+    color: $text-color;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}
+
+.update-author{
+  width: 73%;
+  .new-author-input{
+    font-size: 1em;
+    border: 0.13em solid $boarder-line-color;
+    height: 1.9em;
+  }
+}
+
+.form-title{
+  label{
+    color: $green-color;
+    font-size: 1.3em;
+    font-weight: 500;
+    border-bottom: 3px solid $green-color;
+  }
+  i{
+    font-size: 1.3em;
+  }
+}
+.form-group{
+  .form-label{
+    font-size: .7em;
+    color: #272c2f;
+  }
+  .form-control{
+    border-radius: 0;
+    border:2px solid $boarder-line-color;
+  }
+}
+
+.create-button{
+  margin-right: 0.3em;
+  float: right;
+  background-color: $blue-color;
+  padding: 0.1em;
+  border-radius: 4px;
+}
+
+.edit-button{
+  margin-right: 0.3em;
+  float: right;
+  background-color: $plus-color;
+  padding: 0.1em;
+  border-radius: 4px;
+}
