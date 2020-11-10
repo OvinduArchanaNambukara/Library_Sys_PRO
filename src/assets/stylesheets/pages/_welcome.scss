@@ -1,0 +1,32 @@
+.title{
+  font-weight: 700;
+  color: #253238;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+.banner{
+  width: 100%;
+  height: auto;
+}
+
+figcaption{
+  float: right;
+}
+
+figcaption a{
+  text-decoration: none;
+  color: #3b1bb9;
+  font-weight: 400;
+  font-size: 1.08em;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+
+
+
+
+
+
