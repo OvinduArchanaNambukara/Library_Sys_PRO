@@ -28,7 +28,7 @@ const ReadingArea: React.FC = () => {
     return (
         <Container fluid className='reading-area'>
             <Row>
-                <Col className="ml-4 mr-3 pl-0 pr-0 mt-0 pt-0"><Books/></Col>
+                <Col className="ml-4 mr-3 pl-0 pr-0 mt-0 pt-0"><Books authors={authors}/></Col>
                 <Col className="ml-5 mr-3 pl-0 pr-0 mt-0 pt-0">
                     <Authors authors={authors} onAuthorDelete={handleAuthorDelete} onAuthorAdd={handleOnAuthorCreated} onAuthorUpdate={handleAuthorUpdate}/>
                 </Col>
