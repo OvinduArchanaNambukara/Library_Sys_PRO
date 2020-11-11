@@ -3,8 +3,9 @@ import {Row, Col, Container} from "react-bootstrap";
 import {IAuthor} from "../types/LibraryTypes";
 
 type AuthorProps = {
-    author: IAuthor
-    num: number
+    author: IAuthor,
+    num: number,
+    onAuthorDelete: (deleteAuthorNo: number) => void,
     updateAuthor: (authorNo: number) => void
 };
 
@@ -17,7 +18,7 @@ const Author: React.FC<AuthorProps> = (props) => {
                 </Col>
                 <Col xs={3} className='text-right author-controls'>
                     <i className='feather icon-edit mr-3' onClick={() => props.updateAuthor(props.num-1)}/>
-                    <i className='feather icon-trash-2'/>
+                    <i className='feather icon-trash-2' onClick={()=>props.onAuthorDelete(props.num-1)}/>
                 </Col>
             </Row>
         </Container>

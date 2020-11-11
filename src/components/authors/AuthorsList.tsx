@@ -3,7 +3,8 @@ import Author from "./Author";
 import {IAuthor} from "../types/LibraryTypes";
 
 type AuthorsListProps = {
-    authors: IAuthor[]
+    authors: IAuthor[],
+    onAuthorDelete: (deleteAuthorNo: number) => void,
     updateAuthor: (authorNo: number) => void
 };
 
@@ -11,7 +12,7 @@ const AuthorsList: React.FC<AuthorsListProps> = (props) => {
     const renderAuthors=()=>{
         return(
             props.authors.map((author:IAuthor,index:number)=>
-                <Author key={index} author={author} num={index+1} updateAuthor={props.updateAuthor}/>)
+                <Author key={index} author={author} num={index+1} updateAuthor={props.updateAuthor} onAuthorDelete={props.onAuthorDelete}/>)
         );
     }
 
