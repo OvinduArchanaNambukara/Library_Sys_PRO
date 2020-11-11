@@ -18,7 +18,6 @@ const CreateBook:React.FC<CreateBookProps> = (props) =>{
         const [selectedAuthor, setSelectedAuthor] = useState(null);
 
         const onBookSubmit = (event: FormEvent) => {
-            // @ts-ignore
             event.preventDefault();
             if (title == null || isbn == null || author == null || title == '' || isbn == '' || author == '') {
                alert('error')
