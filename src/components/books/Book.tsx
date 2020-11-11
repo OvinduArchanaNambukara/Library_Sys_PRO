@@ -3,7 +3,7 @@ import {Col, Row,Container} from "react-bootstrap";
 import {IBook} from "../types/LibraryTypes";
 
 type bookProps = {
-    onBookEdit: () => void
+    onBookEdit: (bookNo: number) => void
     num: number,
     book: IBook,
 }
@@ -17,7 +17,7 @@ const Book: React.FC<bookProps> = (props) => {
                        <label>{props.num}. {props.book.title}</label>
                     </Col>
                     <Col sm md xs lg="2" className="text-right pr-0 pb-0 mb-0 pt-1 mt-1">
-                        <i className='feather icon-edit mr-3' onClick={ () => props.onBookEdit()}/>
+                        <i className='feather icon-edit mr-3' onClick={ () => props.onBookEdit(props.num-1)}/>
                         <i className='feather icon-trash-2'/>
                     </Col>
                 </Row>

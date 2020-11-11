@@ -11,18 +11,20 @@ type BooksProps = {
 }
 
 const Books: React.FC<BooksProps> = (props) => {
-    const [isVisible,setIsVisible]=useState<boolean>(false);
-    const [isDisable,setIsDisable]=useState<boolean>(false);
-    const [books, setBooks]=useState<IBook[]>([]);
+    const [isVisible,setIsVisible] = useState<boolean>(false);
+    const [isDisable,setIsDisable] = useState<boolean>(false);
+    const [books, setBooks] =  useState<IBook[]>([]);
+    const [bookNo,setBookNo] = useState<number>(0);
 
     const changeVisibility =(val:boolean)=>{
         setIsVisible(val);
         setIsDisable(false);
     }
 
-    const handleEditClick = () => {
+    const handleEditClick = (bookNo: number) => {
         setIsDisable(true);
         setIsVisible(false);
+        setBookNo(bookNo);
     }
 
     const onEditorClose = () => {
@@ -34,6 +36,14 @@ const Books: React.FC<BooksProps> = (props) => {
         allBooks.push(book);
         setBooks(allBooks);
         setIsVisible(false);
+    }
+
+    const onBookUpdate = (updateBook: IBook) =>{
+        const allBooks: IBook[] = books.slice();
+        allBooks[bookNo] = updateBook;
+        setBooks(allBooks);
+        setIsDisable(false);
+
     }
 
     return(
@@ -48,10 +58,12 @@ const Books: React.FC<BooksProps> = (props) => {
                     <AddBook changeVisibility={changeVisibility}/>
                 </Col>
                 <Col className='mt-3' >
-                    {isVisible && <CreateBook changeVisibility={changeVisibility} onBookAdd={handleOnAdd} authors={props.authors}/>}
+                    {isVisible && <CreateBook changeVisibility={changeVisibility}
+                                              onBookAdd={handleOnAdd} authors={props.authors}/>}
                 </Col>
                 <Col className='mt-3' >
-                    {isDisable && <UpdateBook onEditorClose={onEditorClose}/>}
+                    {isDisable && <UpdateBook onEditorClose={onEditorClose} authors={props.authors}
+                                              onBookUpdate={onBookUpdate} selectedBook={books[bookNo]}/>}
                 </Col>
             </Container>
         </React.Fragment>
