@@ -4,16 +4,16 @@ import {IAuthor} from "../types/LibraryTypes";
 
 type CreateAuthorProps = {
     onEditorClosed: (val: boolean) => void,
-    onAuthorAdd:(newAuthor:IAuthor)=>void
+    onAuthorAdd: (newAuthor: IAuthor) => void
 }
 
 const CreateAuthor: React.FC<CreateAuthorProps> = (props) => {
-    const [authorName,setAuthorName]=useState<string | null>(null);
+    const [authorName,setAuthorName] = useState<string | null>(null);
 
     const handleOnSubmit = (e:FormEvent) => {
         e.preventDefault();
         //@ts-ignore
-        const newAuthor: IAuthor={name:authorName};
+        const newAuthor: IAuthor = {name:authorName};
         props.onAuthorAdd(newAuthor);
         setAuthorName(null);
         props.onEditorClosed(false);
@@ -29,8 +29,7 @@ const CreateAuthor: React.FC<CreateAuthorProps> = (props) => {
                 <Form onSubmit={handleOnSubmit}>
                     <Form.Group controlId="authorNameID">
                         <Form.Label>Name of author</Form.Label>
-                        <Form.Control  className="new-author-input" type="text" placeholder="" required onChange={(e:React.ChangeEvent<HTMLInputElement>)=>
-                            setAuthorName(e.target.value)}/>
+                        <Form.Control  className="new-author-input" type="text" placeholder="" required onChange={(e:React.ChangeEvent<HTMLInputElement>) => setAuthorName(e.target.value)}/>
                     </Form.Group>
                     <Button type="submit" size='sm'  className='float-right create-button'>Create</Button>
                 </Form>
