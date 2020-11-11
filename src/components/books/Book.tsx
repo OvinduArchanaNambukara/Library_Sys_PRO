@@ -6,6 +6,7 @@ type bookProps = {
     onBookEdit: (bookNo: number) => void
     num: number,
     book: IBook,
+    onBookDelete: (bookNo: number) => void
 }
 
 const Book: React.FC<bookProps> = (props) => {
@@ -18,7 +19,7 @@ const Book: React.FC<bookProps> = (props) => {
                     </Col>
                     <Col sm md xs lg="2" className="text-right pr-0 pb-0 mb-0 pt-1 mt-1">
                         <i className='feather icon-edit mr-3' onClick={ () => props.onBookEdit(props.num-1)}/>
-                        <i className='feather icon-trash-2'/>
+                        <i className='feather icon-trash-2' onClick={ () => props.onBookDelete(props.num-1)}/>
                     </Col>
                 </Row>
             </Container>

@@ -46,13 +46,21 @@ const Books: React.FC<BooksProps> = (props) => {
 
     }
 
+    const onBookDelete = (bookNo:number) => {
+        const allBooks: IBook[] = books.slice();
+        allBooks.splice(bookNo,1);
+        setBooks(allBooks);
+        setIsDisable(false);
+        setIsVisible(false);
+    }
+
     return(
         <React.Fragment>
             <Container className="books m-1 p-0 mt-0 pt-0 pl-1 pr-3" fluid>
                 <span className="text-left ml-1 pb-1 mb-3 books-title">Books</span>
-                <label className='font-italic'>No Books listed here</label>
+                {books.length==0 && <label className='font-italic'>No Books listed here</label>}
                 <Col xs={12}>
-                    <BookList onBookEdit={handleEditClick} books={books}/>
+                    {books.length!=0 && <BookList onBookEdit={handleEditClick} books={books} onBookDelete={onBookDelete}/>}
                 </Col>
                 <Col xs={12} className='mt-3'>
                     <AddBook changeVisibility={changeVisibility}/>
