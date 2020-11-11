@@ -1,11 +1,15 @@
 import React from "react";
 import Book from "./Book";
 
-const BookList: React.FC = () =>{
+type BooksProps={
+    onBookEdit:()=>void
+}
+
+const BookList: React.FC<BooksProps> = (props) =>{
     return(
         <React.Fragment>
-            <Book/>
-            <Book/>
+            <Book onBookEdit={props.onBookEdit}/>
+            <Book onBookEdit={props.onBookEdit}/>
         </React.Fragment>
     );
 }
