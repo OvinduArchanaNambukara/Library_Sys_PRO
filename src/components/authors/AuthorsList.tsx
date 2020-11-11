@@ -3,15 +3,15 @@ import Author from "./Author";
 import {IAuthor} from "../types/LibraryTypes";
 
 type AuthorsListProps = {
-    authors:IAuthor[]
-    setIsUpdatable: (val: boolean) => void
+    authors: IAuthor[]
+    updateAuthor: (authorNo: number) => void
 };
 
 const AuthorsList: React.FC<AuthorsListProps> = (props) => {
     const renderAuthors=()=>{
         return(
             props.authors.map((author:IAuthor,index:number)=>
-                <Author key={index} author={author} num={index+1} setIsUpdatable={props.setIsUpdatable}/>)
+                <Author key={index} author={author} num={index+1} updateAuthor={props.updateAuthor}/>)
         );
     }
 
