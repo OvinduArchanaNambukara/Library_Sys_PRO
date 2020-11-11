@@ -9,6 +9,7 @@ import {IAuthor} from "./components/types/LibraryTypes";
 type AuthorsProps={
     authors: IAuthor[],
     onAuthorAdd: (newAuthor: IAuthor) => void,
+    onAuthorDelete: (deleteAuthorNo: number) => void,
     onAuthorUpdate: (updateAuthor: IAuthor,authorNo: number) => void
 }
 
@@ -34,7 +35,7 @@ const Authors: React.FC<AuthorsProps> = (props) => {
             <Container className="books m-1 p-0 mt-0 pt-0 pl-1 pr-3" fluid>
                 <h4 className="sub-title pb-2">Authors</h4>
                 {(props.authors.length == 0) && <label className='font-italic'>No authors listed here</label>}
-                {(props.authors.length != 0) && <AuthorsList updateAuthor={updateAuthor} authors={props.authors}/>}
+                {(props.authors.length != 0) && <AuthorsList updateAuthor={updateAuthor} authors={props.authors} onAuthorDelete={props.onAuthorDelete}/>}
                 <AddAuthor changeVisibility={changeVisibility}/>
                 {isDisable && <UpdateAuthor  authorNo={authorNo} onAuthorUpdate={props.onAuthorUpdate} after={() => setIsDisable(false)} authors={props.authors}/>}
                 {isVisible && <CreateAuthor onEditorClosed={changeVisibility} onAuthorAdd={props.onAuthorAdd} />}
