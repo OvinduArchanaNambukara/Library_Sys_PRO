@@ -1,15 +1,23 @@
 import React from "react";
 import Author from "./Author";
+import {IAuthor} from "../types/LibraryTypes";
 
 type AuthorsListProps = {
+    authors:IAuthor[]
     setIsUpdatable: (val: boolean) => void
 };
 
 const AuthorsList: React.FC<AuthorsListProps> = (props) => {
+    const renderAuthors=()=>{
+        return(
+            props.authors.map((author:IAuthor,index:number)=>
+                <Author key={index} author={author} num={index+1} setIsUpdatable={props.setIsUpdatable}/>)
+        );
+    }
+
     return(
     <React.Fragment>
-        <Author setIsUpdatable={props.setIsUpdatable}/>
-        <Author setIsUpdatable={props.setIsUpdatable}/>
+        {renderAuthors()}
     </React.Fragment>
     );
 };
