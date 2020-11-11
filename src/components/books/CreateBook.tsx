@@ -3,7 +3,11 @@ import {Col, Button, Form} from "react-bootstrap"
 import Select from 'react-select';
 import {selectorstyles} from '../../assets/stylesheets/selectorstyles';
 
-const CreateBook:React.FC =() =>{
+type CreateBookProps={
+    changeVisibility:(val:boolean)=>void;
+}
+
+const CreateBook:React.FC<CreateBookProps> = (props) =>{
     const options=[
         {label:'author 1',value:'author1'},
         {label:'author 2',value:'author2'},
@@ -17,7 +21,7 @@ const CreateBook:React.FC =() =>{
                     <span>Create Book</span>
                 </Col>
                 <Col  className="text-right">
-                    <i className='feather icon-x-circle text-dark text-right'/>
+                    <i className='feather icon-x-circle text-dark text-right' onClick={() => props.changeVisibility(false)}/>
                 </Col>
             </Form.Row>
             <Form className="pl-5">
