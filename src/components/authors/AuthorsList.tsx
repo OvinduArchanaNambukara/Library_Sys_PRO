@@ -1,11 +1,15 @@
 import React from "react";
 import Author from "./Author";
 
-const AuthorsList: React.FC = () => {
+type AuthorsListProps = {
+    setIsUpdatable: (val: boolean) => void
+};
+
+const AuthorsList: React.FC<AuthorsListProps> = (props) => {
     return(
     <React.Fragment>
-        <Author/>
-        <Author/>
+        <Author setIsUpdatable={props.setIsUpdatable}/>
+        <Author setIsUpdatable={props.setIsUpdatable}/>
     </React.Fragment>
     );
 };

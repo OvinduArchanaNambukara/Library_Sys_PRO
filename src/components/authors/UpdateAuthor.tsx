@@ -1,12 +1,18 @@
 import React from "react";
 import {Col, Button, Form, Row} from "react-bootstrap";
 
-const UpdateAuthor: React.FC = () => {
+type UpdateAuthorProps = {
+
+    isUpdatable: (val: boolean) => void,
+
+}
+
+const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
     return(
         <Row className="update-author ml-0 pl-1">
             <Col xs={12} className='form-title mb-3'>
                 <label>Update Author</label>
-                <i className='feather icon-x-circle text-dark text-right float-right cursor-pointer mt-2'/>
+                <i className='feather icon-x-circle text-dark text-right float-right cursor-pointer mt-2' onClick={() => props.isUpdatable(false)}/>
             </Col>
             <Col xs={12} className='pl-5'>
                 <Form>
