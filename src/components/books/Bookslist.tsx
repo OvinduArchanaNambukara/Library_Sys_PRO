@@ -3,7 +3,7 @@ import Book from "./Book";
 import {IBook} from "../types/LibraryTypes";
 
 type BooksProps = {
-    onBookEdit: () => void,
+    onBookEdit: (bookNo: number) => void,
     books: IBook[],
 }
 
