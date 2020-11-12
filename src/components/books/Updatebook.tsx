@@ -2,6 +2,7 @@ import React, {FormEvent, useState} from "react";
 import {Col, Button, Form} from "react-bootstrap"
 import Select, {ValueType} from 'react-select';
 import {IAuthor, IBook} from "../types/LibraryTypes";
+import Swal from "sweetalert2";
 
 type UpdateBookProps = {
     selectedBook: IBook,
@@ -25,11 +26,42 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
         if (title == null || isbn == null || author == null || title == '' || isbn == '' || author == '') {
             setValidated(true);
             author == null || author == '' ? setSelectorColor('#f80046') : setSelectorColor('#989898');
-        } else {
-            // @ts-ignore
-            const book: IBook = {title: title, isbn: isbn, author:{name:author.value}};
-            props.onBookUpdate(book);
-            setValidated(false);
+        }else{
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                }
+            })
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Updated!',
+                        'Book has been updated.',
+                        'success'
+                    )
+                    // @ts-ignore
+                    const book: IBook = {title: title, isbn: isbn, author:{name:author.value}};
+                    props.onBookUpdate(book);
+                    setValidated(false);
+                }else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Book is safe :)',
+                        'error'
+                    )
+                }
+            })
         }
     }
 

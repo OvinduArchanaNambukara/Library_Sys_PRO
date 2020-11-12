@@ -3,6 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import Authors from "../Authors";
 import Books from "../Books";
 import {IAuthor} from "./types/LibraryTypes";
+import Swal from "sweetalert2";
 
 const ReadingArea: React.FC = () => {
     const [authors,setAuthors] = useState<IAuthor[]>([]);
@@ -20,9 +21,40 @@ const ReadingArea: React.FC = () => {
     }
 
     const handleAuthorDelete = (deleteAuthorNo: number) => {
-        const allAuthors: IAuthor[] = authors.slice();
-        allAuthors.splice(deleteAuthorNo,1);
-        setAuthors(allAuthors);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            }
+        })
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Author has been deleted.',
+                    'success'
+                )
+                const allAuthors: IAuthor[] = authors.slice();
+                allAuthors.splice(deleteAuthorNo,1);
+                setAuthors(allAuthors);
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Author is safe :)',
+                    'error'
+                )
+            }
+        })
     }
 
     return (

@@ -5,6 +5,7 @@ import AddBook from "./components/books/AddBook";
 import CreateBook from "./components/books/CreateBook";
 import UpdateBook from "./components/books/Updatebook";
 import {IAuthor, IBook} from "./components/types/LibraryTypes";
+import Swal from "sweetalert2";
 
 type BooksProps = {
     authors: IAuthor[];
@@ -47,11 +48,42 @@ const Books: React.FC<BooksProps> = (props) => {
     }
 
     const onBookDelete = (bookNo:number) => {
-        const allBooks: IBook[] = books.slice();
-        allBooks.splice(bookNo,1);
-        setBooks(allBooks);
-        setIsDisable(false);
-        setIsVisible(false);
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            }
+        })
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Book has been deleted.',
+                    'success'
+                )
+                const allBooks: IBook[] = books.slice();
+                allBooks.splice(bookNo,1);
+                setBooks(allBooks);
+                setIsDisable(false);
+                setIsVisible(false);
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Book is safe :)',
+                    'error'
+                )
+            }
+        })
     }
 
     return(
