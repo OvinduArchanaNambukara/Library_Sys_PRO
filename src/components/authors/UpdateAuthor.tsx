@@ -1,6 +1,7 @@
 import React, {FormEvent, useState} from "react";
 import {Col, Button, Form, Row} from "react-bootstrap";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor, IBook} from "../types/LibraryTypes";
+import Swal from "sweetalert2";
 
 type UpdateAuthorProps = {
     onAuthorUpdate: (updateAuthor:IAuthor,authorNo:number) => void,
@@ -18,12 +19,43 @@ const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
         e.preventDefault();
         e.stopPropagation();
         if(editAuthorName !== null && editAuthorName !== ''){
-            const updateAuthor: IAuthor = {name: editAuthorName};
-            // @ts-ignore
-            props.onAuthorUpdate(updateAuthor, props.authorNo);
-            setEditAuthorName('');
-            setValidated(false);
-            props.after();
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                }
+            })
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Updated!',
+                        'Author has been updated.',
+                        'success'
+                    )
+                    const updateAuthor: IAuthor = {name: editAuthorName};
+                    // @ts-ignore
+                    props.onAuthorUpdate(updateAuthor, props.authorNo);
+                    setEditAuthorName('');
+                    setValidated(false);
+                    props.after();
+                }else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Author is safe :)',
+                        'error'
+                    )
+                }
+            })
         }else{
             setValidated(true);
         }
