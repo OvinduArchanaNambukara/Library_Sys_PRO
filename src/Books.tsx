@@ -16,7 +16,7 @@ const Books: React.FC<BooksProps> = (props) => {
     const [isDisable,setIsDisable] = useState<boolean>(false);
     const [books, setBooks] =  useState<IBook[]>([]);
     const [bookNo,setBookNo] = useState<number>(0);
-
+    console.log(books)
     const changeVisibility =(val:boolean)=>{
         setIsVisible(val);
         setIsDisable(false);
@@ -92,7 +92,8 @@ const Books: React.FC<BooksProps> = (props) => {
                 <span className="text-left ml-1 pb-1 mb-3 books-title">Books</span>
                 {books.length==0 && <label className='font-italic'>No Books listed here</label>}
                 <Col xs={12}>
-                    {books.length!=0 && <BookList onBookEdit={handleEditClick} books={books} onBookDelete={onBookDelete}/>}
+                    {books.length!=0 && <BookList onBookEdit={handleEditClick} books={books}
+                                                  onBookDelete={onBookDelete}/>}
                 </Col>
                 <Col xs={12} className='mt-3'>
                     <AddBook changeVisibility={changeVisibility}/>
