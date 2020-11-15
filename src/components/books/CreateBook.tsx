@@ -1,6 +1,6 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form} from "react-bootstrap"
-import Select, {ValueType} from 'react-select';
+import Select, {OptionsType, ValueType} from 'react-select';
 import {IAuthor, IBook} from "../types/LibraryTypes";
 
 type CreateBookProps={
@@ -9,13 +9,15 @@ type CreateBookProps={
     authors: IAuthor[]
 }
 
+type optionTypes = { label: string, value: string }
+
 const CreateBook:React.FC<CreateBookProps> = (props) =>{
         const {authors} = props;
         const [title, setTitle] = useState<string | null>(null);
         const [isbn, setISBN] = useState<string | null>(null);
         const [author, setAuthor] = useState<string | null>(null)
-        const [selectedAuthor, setSelectedAuthor] = useState(null);
-        const [validated, setValidated] = useState(false);
+        const [validated, setValidated] = useState<boolean>(false);
+        const [selectedAuthor, setSelectedAuthor] = useState<optionTypes | null>(null);
         const [selectorColor, setSelectorColor] = useState<string>('#989898');
 
         const onBookSubmit = (event: FormEvent) => {
@@ -24,12 +26,10 @@ const CreateBook:React.FC<CreateBookProps> = (props) =>{
                 setValidated(true);
                 author == null || author == '' ? setSelectorColor('#f80046') : setSelectorColor('#989898');
             }else{
-                // @ts-ignore
-                props.onBookAdd({title: title, isbn: isbn, author:{name:author.value}});
+                props.onBookAdd({title: title, isbn: isbn, author:{name:author}});
                 setTitle(null);
                 setISBN(null);
                 setAuthor(null);
-                setSelectedAuthor(null)
                 setValidated(false);
             }
         }
@@ -39,10 +39,17 @@ const CreateBook:React.FC<CreateBookProps> = (props) =>{
             allAuthors.push({label: author.name, value: author.name});
         });
 
-        const handleSelectAuthor = (selectAuthor: ValueType<any>) => {
-            setSelectedAuthor(selectAuthor);
-            setAuthor(selectAuthor);
-            onChangeValidation();
+        const handleSelectAuthor = (selectAuthor: ValueType<optionTypes>) => {
+            if(selectAuthor==null){
+                setSelectedAuthor(null);
+                setAuthor(null);
+            }else {
+                const value=(selectAuthor as optionTypes).value;
+                const label=(selectAuthor as optionTypes).label;
+                setSelectedAuthor({label:label ,value:value});
+                setAuthor(value);
+                onChangeValidation();
+            }
         }
 
         const onChangeTitle = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +83,8 @@ const CreateBook:React.FC<CreateBookProps> = (props) =>{
                     <span>Create Book</span>
                 </Col>
                 <Col  className="text-right">
-                    <i className='feather icon-x-circle text-dark text-right' onClick={() => props.changeVisibility(false)}/>
+                    <i className='feather icon-x-circle text-dark text-right'
+                       onClick={() => props.changeVisibility(false)}/>
                 </Col>
             </Form.Row>
             <Form className="pl-5" onSubmit={onBookSubmit} noValidate validated={validated}>
@@ -102,9 +110,10 @@ const CreateBook:React.FC<CreateBookProps> = (props) =>{
                             styles={selectorstyles}
                             isSearchable
                             isClearable
-                            value={selectedAuthor}
                             onChange={handleSelectAuthor}
                             required
+                            value={selectedAuthor}
+
                         />
                     </Form.Group>
                 </Form.Row>

@@ -11,11 +11,14 @@ type UpdateBookProps = {
     onBookUpdate: (updateBook: IBook) => void
 }
 
+type optionTypes = { label: string, value: string }
+
 const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
     const [title, setTitle] = useState<string>(props.selectedBook.title);
     const [isbn, setISBN] = useState<string>(props.selectedBook.isbn);
     const [author, setAuthor] = useState<string | null>(null)
-    const [selectedAuthor, setSelectedAuthor] = useState({label:props.selectedBook.author.name,value:props.selectedBook.author.name});
+    const [selectedAuthor, setSelectedAuthor] = useState<optionTypes | null>
+            ({label:props.selectedBook.author.name, value:props.selectedBook.author.name});
     const [validated, setValidated] = useState(false);
     const [selectorColor, setSelectorColor] = useState<string>('#989898');
 
@@ -70,10 +73,17 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
         allAuthors.push({label: author.name, value: author.name});
     });
 
-    const handleSelectAuthor = (selectAuthor: ValueType<any>) => {
-        setSelectedAuthor(selectAuthor);
-        setAuthor(selectAuthor);
-        onChangeValidation();
+    const handleSelectAuthor = (selectAuthor: ValueType<optionTypes>) => {
+        if(selectAuthor == null){
+            setSelectedAuthor(null);
+            setAuthor(null);
+        }else {
+            const value = (selectAuthor as optionTypes).value;
+            const label = (selectAuthor as optionTypes).label;
+            setSelectedAuthor({label:label ,value:value});
+            setAuthor(value);
+            onChangeValidation();
+        }
     }
 
     const onChangeTitle = (e:React.ChangeEvent<HTMLInputElement>) => {

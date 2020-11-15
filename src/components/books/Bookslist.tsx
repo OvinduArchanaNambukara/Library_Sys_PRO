@@ -9,7 +9,7 @@ type BooksProps = {
 }
 
 const BookList: React.FC<BooksProps> = (props) => {
-    const renderBooks =props.books.map((book: IBook, index: number) =>
+    const renderBooks = props.books.map((book: IBook, index: number) =>
         <Book num={index+1} book={book} key={index} onBookEdit={props.onBookEdit} onBookDelete={props.onBookDelete}/>)
 
     return(

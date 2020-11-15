@@ -18,7 +18,7 @@ const Author: React.FC<AuthorProps> = (props) => {
                 </Col>
                 <Col xs={3} className='text-right author-controls'>
                     <i className='feather icon-edit mr-3' onClick={() => props.updateAuthor(props.num-1)}/>
-                    <i className='feather icon-trash-2' onClick={()=>props.onAuthorDelete(props.num-1)}/>
+                    <i className='feather icon-trash-2' onClick={() => props.onAuthorDelete(props.num-1)}/>
                 </Col>
             </Row>
         </Container>
