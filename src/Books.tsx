@@ -16,7 +16,7 @@ const Books: React.FC<BooksProps> = (props) => {
     const [isDisable,setIsDisable] = useState<boolean>(false);
     const [books, setBooks] =  useState<IBook[]>([]);
     const [bookNo,setBookNo] = useState<number>(0);
-    console.log(books)
+    
     const changeVisibility =(val:boolean)=>{
         setIsVisible(val);
         setIsDisable(false);
