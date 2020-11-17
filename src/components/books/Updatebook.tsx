@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form} from "react-bootstrap"
 import Select, {ValueType} from 'react-select';
 import {IAuthor, IBook} from "../types/LibraryTypes";
@@ -22,7 +22,11 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
     const [validated, setValidated] = useState(false);
     const [selectorColor, setSelectorColor] = useState<string>('#989898');
 
-
+    useEffect(() => {
+        setTitle(props.selectedBook.title);
+        setISBN(props.selectedBook.isbn);
+        setSelectedAuthor({label:props.selectedBook.author.name, value:props.selectedBook.author.name});
+    },[props.selectedBook])
 
     const onBookSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -51,8 +55,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
                         'Book has been updated.',
                         'success'
                     )
-                    // @ts-ignore
-                    const book: IBook = {title: title, isbn: isbn, author:{name:author.value}};
+                    const book: IBook = {title: title, isbn: isbn, author: {name: author}};
                     props.onBookUpdate(book);
                     setValidated(false);
                 }else if (

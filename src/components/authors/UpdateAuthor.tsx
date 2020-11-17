@@ -1,6 +1,6 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form, Row} from "react-bootstrap";
-import {IAuthor, IBook} from "../types/LibraryTypes";
+import {IAuthor} from "../types/LibraryTypes";
 import Swal from "sweetalert2";
 
 type UpdateAuthorProps = {
@@ -14,6 +14,10 @@ type UpdateAuthorProps = {
 const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
     const [editAuthorName,setEditAuthorName] = useState<string>(props.authors[props.authorNo].name);
     const [validated,setValidated] = useState<boolean>(false);
+
+    useEffect(() => {
+        setEditAuthorName(props.authors[props.authorNo].name);
+    },[props.authorNo]);
 
     const handleOnSubmit = (e:FormEvent)=>{
         e.preventDefault();
