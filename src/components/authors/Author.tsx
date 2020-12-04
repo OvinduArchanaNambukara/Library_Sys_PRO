@@ -1,6 +1,6 @@
 import React from "react";
 import {Row, Col, Container} from "react-bootstrap";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor} from "../../types/LibraryTypes";
 
 type AuthorProps = {
     author: IAuthor,

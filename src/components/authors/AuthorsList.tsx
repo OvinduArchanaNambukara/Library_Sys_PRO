@@ -1,6 +1,6 @@
 import React from "react";
 import Author from "./Author";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor} from "../../types/LibraryTypes";
 
 type AuthorsListProps = {
     authors: IAuthor[],

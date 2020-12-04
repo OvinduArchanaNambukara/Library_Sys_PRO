@@ -4,7 +4,7 @@ import AuthorsList from "./components/authors/AuthorsList";
 import AddAuthor from "./components/authors/AddAuthor";
 import CreateAuthor from "./components/authors/CreateAuthor";
 import UpdateAuthor from "./components/authors/UpdateAuthor";
-import {IAuthor} from "./components/types/LibraryTypes";
+import {IAuthor} from "./types/LibraryTypes";
 
 type AuthorsProps={
     authors: IAuthor[],

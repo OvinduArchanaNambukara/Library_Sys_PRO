@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import Authors from "../Authors";
 import Books from "../Books";
-import {IAuthor} from "./types/LibraryTypes";
+import {IAuthor} from "../types/LibraryTypes";
+import {useSelector} from "react-redux";
 import Swal from "sweetalert2";
+import {RootState} from "../store/index";
 
 const ReadingArea: React.FC = () => {
     const [authors,setAuthors] = useState<IAuthor[]>([]);

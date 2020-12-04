@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Row,Container} from "react-bootstrap";
-import {IBook} from "../types/LibraryTypes";
+import {IBook} from "../../types/LibraryTypes";
 
 type bookProps = {
     onBookEdit: (bookNo: number) => void

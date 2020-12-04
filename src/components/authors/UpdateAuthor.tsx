@@ -1,6 +1,6 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form, Row} from "react-bootstrap";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
 
 type UpdateAuthorProps = {

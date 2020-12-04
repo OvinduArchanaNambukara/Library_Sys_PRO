@@ -1,6 +1,6 @@
 import React, {FormEvent, useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor} from "../../types/LibraryTypes";
 
 type CreateAuthorProps = {
     onEditorClosed: (val: boolean) => void,
