@@ -1,14 +1,14 @@
 import {IBook, StoreActionTypes} from "../../types/LibraryTypes";
 import {CREATE_BOOK, DELETE_BOOK, UPDATE_BOOK} from "../../constants/actions/BooksActions";
 
-export function createBook(newBook: IBook): StoreActionTypes {
+export const createBook = (newBook: IBook): StoreActionTypes => {
     return {
         type: CREATE_BOOK,
         payload: newBook
     }
 }
 
-export function updateBook(updateBook: IBook, index: number): StoreActionTypes {
+export const updateBook = (updateBook: IBook, index: number): StoreActionTypes => {
     return {
         type: UPDATE_BOOK,
         payload: {
@@ -18,7 +18,7 @@ export function updateBook(updateBook: IBook, index: number): StoreActionTypes {
     }
 }
 
-export function deleteBook(deleteBook: IBook, index: number): StoreActionTypes {
+export const deleteBook = (deleteBook: IBook, index: number): StoreActionTypes => {
     return {
         type: DELETE_BOOK,
         payload: {

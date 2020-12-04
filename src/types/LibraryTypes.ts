@@ -1,5 +1,8 @@
-import {CREATE_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../constants/actions/AuhtorActions";
+
 import {CREATE_BOOK, DELETE_BOOK, UPDATE_BOOK} from "../constants/actions/BooksActions";
+export const CREATE_AUTHOR = 'CREATE_AUTHOR';
+export const UPDATE_AUTHOR = 'UPDATE_AUTHOR';
+export const DELETE_AUTHOR = 'DELETE_AUTHOR;'
 
 export interface IAuthor {
     name: string;
@@ -44,6 +47,7 @@ export interface CreateAuthorAction {
     type: typeof CREATE_AUTHOR
     payload: IAuthor
 }
+
 
 export interface UpdateAuthorAction {
     type: typeof UPDATE_AUTHOR
