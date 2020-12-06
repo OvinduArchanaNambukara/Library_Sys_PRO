@@ -5,7 +5,7 @@ const initialState: AuthorState = {
     authors: [{name: 'ovindu'}, {name: 'Archana'}]
 }
 
-export const authorReducer = (action: StoreActionTypes={type:CREATE_AUTHOR,payload:{name:"Ovindu"}}, state: AuthorState = initialState): AuthorState => {
+export const authorReducer = (action: StoreActionTypes, state: AuthorState = initialState): AuthorState => {
     switch (action.type) {
         case CREATE_AUTHOR:
             return state
