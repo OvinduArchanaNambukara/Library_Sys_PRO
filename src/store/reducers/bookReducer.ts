@@ -8,7 +8,7 @@ const initialState: BookState = {
 export const bookReducer = (action: StoreActionTypes, state: BookState = initialState): BookState => {
     switch (action.type) {
         case CREATE_BOOK:
-            return state
+            return state;
         case UPDATE_BOOK:
             return state
         case DELETE_BOOK:

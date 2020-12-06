@@ -7,7 +7,7 @@ import thunkMiddleware from "redux-thunk";
 
 const initialState = {};
 const rootReducer = combineReducers({
-    authors: authorReducer,
+    authors: authorReducer  ,
     books: bookReducer
 })
 
