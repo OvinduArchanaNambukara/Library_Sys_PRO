@@ -1,28 +1,30 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form, Row} from "react-bootstrap";
-import {IAuthor} from "../types/LibraryTypes";
+import {IAuthor} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/reducers";
+import {updateAuthor} from "../../store/actions/AuthorActions";
 
 type UpdateAuthorProps = {
-    onAuthorUpdate: (updateAuthor:IAuthor,authorNo:number) => void,
     after: () => void,
     authorNo: number,
-    authors: IAuthor[]
-
 }
 
 const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
-    const [editAuthorName,setEditAuthorName] = useState<string>(props.authors[props.authorNo].name);
-    const [validated,setValidated] = useState<boolean>(false);
+    const authors: IAuthor[] = useSelector((state: RootState) => state.authorReducer.authors);
+    const [editAuthorName, setEditAuthorName] = useState<string>(authors[props.authorNo].name);
+    const [validated, setValidated] = useState<boolean>(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        setEditAuthorName(props.authors[props.authorNo].name);
-    },[props.authorNo]);
+        setEditAuthorName(authors[props.authorNo].name);
+    }, [props.authorNo]);
 
-    const handleOnSubmit = (e:FormEvent)=>{
+    const handleOnSubmit = (e: FormEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if(editAuthorName !== null && editAuthorName !== ''){
+        if (editAuthorName !== null && editAuthorName !== '') {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -44,12 +46,13 @@ const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
                         'Author has been updated.',
                         'success'
                     )
-                    const updateAuthor: IAuthor = {name: editAuthorName};
-                    props.onAuthorUpdate(updateAuthor, props.authorNo);
+                    const toUpdateAuthor: IAuthor = {name: editAuthorName};
+                    dispatch(updateAuthor(toUpdateAuthor, props.authorNo));
+                    //props.onAuthorUpdate(updateAuthor, props.authorNo);
                     setEditAuthorName('');
                     setValidated(false);
                     props.after();
-                }else if (
+                } else if (
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
@@ -59,17 +62,17 @@ const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
                     )
                 }
             })
-        }else{
+        } else {
             setValidated(true);
         }
     }
 
-    const onChangeUpdateAuthorName = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeUpdateAuthorName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditAuthorName(e.target.value);
         setValidated(false);
     }
 
-    return(
+    return (
         <Row className="update-author ml-0 pl-1">
             <Col xs={12} className='form-title mb-3'>
                 <label>Update Author</label>

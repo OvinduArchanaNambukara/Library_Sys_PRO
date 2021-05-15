@@ -1,7 +1,7 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form} from "react-bootstrap"
 import Select, {ValueType} from 'react-select';
-import {IAuthor, IBook} from "../types/LibraryTypes";
+import {IAuthor, IBook} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
 
 type UpdateBookProps = {

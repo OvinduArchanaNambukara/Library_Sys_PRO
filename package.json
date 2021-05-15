@@ -46,6 +46,15 @@
     ]
   },
   "devDependencies": {
-    "@types/react-select": "^3.0.25"
+    "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-select": "^3.0.25",
+    "i": "^0.3.6",
+    "npm": "^7.12.1",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
+    "thunk": "0.0.1"
   }
 }

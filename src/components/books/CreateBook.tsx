@@ -1,7 +1,7 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import {Col, Button, Form} from "react-bootstrap"
 import Select, {OptionsType, ValueType} from 'react-select';
-import {IAuthor, IBook} from "../types/LibraryTypes";
+import {IAuthor, IBook} from "../../types/LibraryTypes";
 
 type CreateBookProps={
     changeVisibility: (val: boolean) => void,

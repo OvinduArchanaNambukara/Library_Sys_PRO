@@ -1,6 +1,6 @@
 import React from "react";
 import Book from "./Book";
-import {IBook} from "../types/LibraryTypes";
+import {IBook} from "../../types/LibraryTypes";
 
 type BooksProps = {
     onBookEdit: (bookNo: number) => void,

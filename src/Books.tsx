@@ -4,7 +4,7 @@ import BookList from "./components/books/Bookslist";
 import AddBook from "./components/books/AddBook";
 import CreateBook from "./components/books/CreateBook";
 import UpdateBook from "./components/books/Updatebook";
-import {IAuthor, IBook} from "./components/types/LibraryTypes";
+import {IAuthor, IBook} from "./types/LibraryTypes";
 import Swal from "sweetalert2";
 
 type BooksProps = {
