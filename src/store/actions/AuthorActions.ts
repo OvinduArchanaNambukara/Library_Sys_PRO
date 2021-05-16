@@ -1,5 +1,5 @@
 import {AuthorActionTypes} from "../../types/store/AuthorActionTypes";
-import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../../constants/StoreConstants";
+import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../constants/AuthorConstants";
 import {IAuthor} from "../../types/LibraryTypes";
 
 export const addAuthor = (newAuthor: IAuthor): AuthorActionTypes => {

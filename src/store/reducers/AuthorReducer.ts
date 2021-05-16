@@ -1,13 +1,10 @@
 import {IAuthor} from "../../types/LibraryTypes";
 import {AuthorActionTypes} from "../../types/store/AuthorActionTypes";
-import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../../constants/StoreConstants";
+import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../constants/AuthorConstants";
 import {addAuthor} from "../actions/AuthorActions";
 
 const initialState: StoreType = {
-    authors: [
-        {name: "Kamal"},
-        {name: "sunil"}
-    ]
+    authors: []
 };
 
 interface StoreType {

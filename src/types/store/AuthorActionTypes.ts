@@ -1,5 +1,5 @@
 import {IAuthor} from "../LibraryTypes";
-import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../../constants/StoreConstants";
+import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../../store/constants/AuthorConstants";
 
 export interface AddAuthor {
     type: typeof ADD_AUTHOR,

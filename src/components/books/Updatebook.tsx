@@ -3,17 +3,18 @@ import {Col, Button, Form} from "react-bootstrap"
 import Select, {ValueType} from 'react-select';
 import {IAuthor, IBook} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/reducers";
 
 type UpdateBookProps = {
     selectedBook: IBook,
     onEditorClose: () => void,
-    authors: IAuthor[]
     onBookUpdate: (updateBook: IBook) => void
 }
 
 type optionTypes = { label: string, value: string }
 
-const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
+const UpdateBook: React.FC<UpdateBookProps> = (props) => {
     const [title, setTitle] = useState<string>(props.selectedBook.title);
     const [isbn, setISBN] = useState<string>(props.selectedBook.isbn);
     const [author, setAuthor] = useState<string | null>(null)
@@ -21,6 +22,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
             ({label:props.selectedBook.author.name, value:props.selectedBook.author.name});
     const [validated, setValidated] = useState(false);
     const [selectorColor, setSelectorColor] = useState<string>('#989898');
+    const authors = useSelector((state: RootState) => state.authorReducer.authors);
 
     useEffect(() => {
         setTitle(props.selectedBook.title);
@@ -72,7 +74,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
     }
 
     const allAuthors: { label: string, value: string }[] = [];
-    props.authors.map((author: IAuthor) => {
+    authors.map((author: IAuthor) => {
         allAuthors.push({label: author.name, value: author.name});
     });
 
@@ -99,11 +101,11 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
         onChangeValidation();
     }
 
-    const selectorstyles = {
+    const selectorStyles = {
         control: (provided: any, state: any) => ({
             ...provided,
             borderRadius: 0,
-            border: '2px solid'+ selectorColor
+            border: '2px solid' + selectorColor
         })
     }
 
@@ -145,7 +147,7 @@ const UpdateBook:React.FC<UpdateBookProps> = (props) =>{
                         <Select
                             value={selectedAuthor}
                             options={allAuthors}
-                            styles={selectorstyles}
+                            styles={selectorStyles}
                             isSearchable
                             isClearable
                             onChange={handleSelectAuthor}

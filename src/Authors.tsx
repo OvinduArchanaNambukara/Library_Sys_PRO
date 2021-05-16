@@ -32,8 +32,8 @@ const Authors: React.FC<AuthorsProps> = (props) => {
         <React.Fragment>
             <Container className="books m-1 p-0 mt-0 pt-0 pl-1 pr-3" fluid>
                 <h4 className="sub-title pb-2">Authors</h4>
-                {(authors.length == 0) && <label className='font-italic'>No authors listed here</label>}
-                {(authors.length != 0) && <AuthorsList updateAuthor={updateAuthor}/>}
+                {(authors.length === 0) && <label className='font-italic'>No authors listed here</label>}
+                {(authors.length !== 0) && <AuthorsList updateAuthor={updateAuthor}/>}
                 <AddAuthor changeVisibility={changeVisibility}/>
                 {isDisable && <UpdateAuthor authorNo={authorNo} after={() => setIsDisable(false)}/>}
                 {isVisible && <CreateAuthor onEditorClosed={changeVisibility}/>}

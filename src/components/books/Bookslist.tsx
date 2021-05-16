@@ -1,6 +1,8 @@
 import React from "react";
 import Book from "./Book";
 import {IBook} from "../../types/LibraryTypes";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/reducers";
 
 type BooksProps = {
     onBookEdit: (bookNo: number) => void,
@@ -9,10 +11,12 @@ type BooksProps = {
 }
 
 const BookList: React.FC<BooksProps> = (props) => {
-    const renderBooks = props.books.map((book: IBook, index: number) =>
-        <Book num={index+1} book={book} key={index} onBookEdit={props.onBookEdit} onBookDelete={props.onBookDelete}/>)
 
-    return(
+    const books = useSelector((state: RootState) => state.bookReducer.books);
+    const renderBooks = books.map((book: IBook, index: number) =>
+        <Book num={index + 1} book={book} key={index} onBookEdit={props.onBookEdit} onBookDelete={props.onBookDelete}/>)
+
+    return (
         <React.Fragment>
             {renderBooks}
         </React.Fragment>

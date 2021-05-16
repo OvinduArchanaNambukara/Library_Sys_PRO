@@ -3,7 +3,7 @@ import {Row, Col, Container} from "react-bootstrap";
 import {IAuthor} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
 import {useDispatch} from "react-redux";
-import {deleteAuthor, updateAuthor} from "../../store/actions/AuthorActions";
+import {deleteAuthor} from "../../store/actions/AuthorActions";
 
 type AuthorProps = {
     author: IAuthor,
