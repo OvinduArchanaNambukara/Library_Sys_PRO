@@ -115,7 +115,9 @@ const Books: React.FC<BooksProps> = (props) => {
             <Container className="books m-1 p-0 mt-0 pt-0 pl-1 pr-3" fluid>
                 <span className="text-left ml-1 pb-1 mb-3 books-title">Books</span>
                 {(loading) && <Spinner animation="border" role="status"/>}
-                {books.length === 0 && (!loading) && <label className='font-italic'>No Books listed here</label>}
+                {error && <p>Error</p>}
+                {books.length === 0 && (!loading) && (!error) &&
+                <label className='font-italic'>No Books listed here</label>}
                 <Col xs={12}>
                     {books.length !== 0 && <BookList onBookEdit={handleEditClick} books={books}
                                                      onBookDelete={onBookDelete}/>}

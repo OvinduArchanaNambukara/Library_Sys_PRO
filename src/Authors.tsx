@@ -44,7 +44,9 @@ const Authors: React.FC<AuthorsProps> = (props) => {
             <Container className="books m-1 p-0 mt-0 pt-0 pl-1 pr-3" fluid>
                 <h4 className="sub-title pb-2">Authors</h4>
                 {(loading) && <Spinner animation="border" role="status"/>}
-                {(authors.length === 0) && (!loading) && <label className='font-italic'>No authors listed here</label>}
+                {error && <p>Error</p>}
+                {(authors.length === 0) && (!loading) && (!error) &&
+                <label className='font-italic'>No authors listed here</label>}
                 {(authors.length !== 0) && <AuthorsList updateAuthor={updateAuthor}/>}
                 <AddAuthor changeVisibility={changeVisibility}/>
                 {isDisable && <UpdateAuthor authorNo={authorNo} after={() => setIsDisable(false)}/>}
