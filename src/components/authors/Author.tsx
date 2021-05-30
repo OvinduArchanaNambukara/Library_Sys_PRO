@@ -4,6 +4,9 @@ import {IAuthor} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
 import {useDispatch} from "react-redux";
 import {deleteAuthor} from "../../store/actions/AuthorActions";
+import {useMutation} from "@apollo/client";
+import {DELETE_AUTHOR} from "../../graphql/mutation/Authors";
+import {GET_ALL_AUTHORS} from "../../graphql/query/Authors";
 
 type AuthorProps = {
     author: IAuthor,
@@ -13,9 +16,10 @@ type AuthorProps = {
 
 const Author: React.FC<AuthorProps> = (props) => {
 
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
+    const [deleteAuthor, {data}] = useMutation(DELETE_AUTHOR);
 
-    const handleAuthorDelete = (deleteAuthorNo: number) => {
+    const handleAuthorDelete = (deleteAuthorId: string) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -37,7 +41,14 @@ const Author: React.FC<AuthorProps> = (props) => {
                     'Author has been deleted.',
                     'success'
                 )
-                dispatch(deleteAuthor(deleteAuthorNo));
+                //dispatch(deleteAuthor(deleteAuthorNo));
+                deleteAuthor({
+                    variables: {
+                        deleteAuthorID: deleteAuthorId
+                    },
+                    refetchQueries: [{query: GET_ALL_AUTHORS}]
+                })
+
             } else if (
                 result.dismiss === Swal.DismissReason.cancel
             ) {
@@ -59,7 +70,7 @@ const Author: React.FC<AuthorProps> = (props) => {
                 </Col>
                 <Col xs={3} className='text-right author-controls'>
                     <i className='feather icon-edit mr-3' onClick={() => props.updateAuthor(props.num - 1)}/>
-                    <i className='feather icon-trash-2' onClick={() => handleAuthorDelete(props.num - 1)}/>
+                    <i className='feather icon-trash-2' onClick={() => handleAuthorDelete(props.author._id)}/>
                 </Col>
             </Row>
         </Container>

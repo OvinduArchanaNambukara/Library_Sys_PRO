@@ -5,6 +5,9 @@ import Swal from "sweetalert2";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers";
 import {updateAuthor} from "../../store/actions/AuthorActions";
+import {useMutation} from "@apollo/client";
+import {UPDATE_AUTHOR} from "../../graphql/mutation/Authors";
+import {GET_ALL_AUTHORS} from "../../graphql/query/Authors";
 
 type UpdateAuthorProps = {
     after: () => void,
@@ -16,6 +19,7 @@ const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
     const [editAuthorName, setEditAuthorName] = useState<string>(authors[props.authorNo].name);
     const [validated, setValidated] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const [updateAuthor, {data}] = useMutation(UPDATE_AUTHOR);
 
     useEffect(() => {
         setEditAuthorName(authors[props.authorNo].name);
@@ -46,9 +50,16 @@ const UpdateAuthor: React.FC<UpdateAuthorProps> = (props) => {
                         'Author has been updated.',
                         'success'
                     )
-                    const toUpdateAuthor: IAuthor = {name: editAuthorName};
-                    dispatch(updateAuthor(toUpdateAuthor, props.authorNo));
+                    //const toUpdateAuthor: IAuthor = {name: editAuthorName};
+                    //dispatch(updateAuthor(toUpdateAuthor, props.authorNo));
                     //props.onAuthorUpdate(updateAuthor, props.authorNo);
+                    updateAuthor({
+                        variables: {
+                            updateName: editAuthorName,
+                            id: authors[props.authorNo]._id
+                        },
+                        refetchQueries: [{query: GET_ALL_AUTHORS}]
+                    })
                     setEditAuthorName('');
                     setValidated(false);
                     props.after();

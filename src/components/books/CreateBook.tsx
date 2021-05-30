@@ -5,6 +5,9 @@ import {IAuthor, IBook} from "../../types/LibraryTypes";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/reducers";
 import {addBook} from "../../store/actions/BookActions";
+import {useMutation} from "@apollo/client";
+import {CREATE_BOOK} from "../../graphql/mutation/Books";
+import {GET_ALL_BOOKS} from "../../graphql/query/Books";
 
 type CreateBookProps = {
     changeVisibility: (val: boolean) => void,
@@ -22,6 +25,7 @@ const CreateBook: React.FC<CreateBookProps> = (props) => {
     const [selectorColor, setSelectorColor] = useState<string>('#989898');
     const authors = useSelector((state: RootState) => state.authorReducer.authors);
     const dispatch = useDispatch();
+    const [createBook, {data}] = useMutation(CREATE_BOOK);
 
     const onBookSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -29,7 +33,15 @@ const CreateBook: React.FC<CreateBookProps> = (props) => {
             setValidated(true);
             author == null || author == '' ? setSelectorColor('#f80046') : setSelectorColor('#989898');
         } else {
-            dispatch(addBook({title: title, isbn: isbn, author: {name: author}}));
+            //dispatch(addBook({title: title, isbn: isbn, author: {name: author}}));
+            createBook({
+                variables: {
+                    name: title,
+                    isbn: isbn,
+                    author: author
+                },
+                refetchQueries: [{query: GET_ALL_BOOKS}]
+            });
             props.onBookAdd();
             setTitle(null);
             setISBN(null);

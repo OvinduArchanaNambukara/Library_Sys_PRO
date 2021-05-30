@@ -1,7 +1,6 @@
 import {IAuthor} from "../../types/LibraryTypes";
 import {AuthorActionTypes} from "../../types/store/AuthorActionTypes";
-import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../constants/AuthorConstants";
-import {addAuthor} from "../actions/AuthorActions";
+import {ADD_AUTHOR, DELETE_AUTHOR, FETCH_ALL_AUTHORS, UPDATE_AUTHOR} from "../constants/AuthorConstants";
 
 const initialState: StoreType = {
     authors: []
@@ -12,6 +11,7 @@ interface StoreType {
 }
 
 export const AuthorReducer = (state: StoreType = initialState, action: AuthorActionTypes) => {
+
     switch (action.type) {
         case ADD_AUTHOR:
             return {
@@ -31,6 +31,11 @@ export const AuthorReducer = (state: StoreType = initialState, action: AuthorAct
                 authors: state.authors.filter(
                     (author: IAuthor, index: number) => index !== action.payload.authorIndex
                 )
+            }
+        case FETCH_ALL_AUTHORS :
+            return {
+                ...state,
+                authors: action.payload
             }
         default:
             return state;

@@ -1,10 +1,9 @@
 import {BookActionTypes} from "../../types/store/BookActionTypes";
 import {IBook} from "../../types/LibraryTypes";
-import {ADD_BOOK, DELETE_BOOK, UPDATE_BOOK} from "../constants/BookConstants";
+import {ADD_BOOK, DELETE_BOOK, FETCH_ALL_BOOKS, UPDATE_BOOK} from "../constants/BookConstants";
 
 const initialState: BookTypes = {
     books: []
-
 }
 
 interface BookTypes {
@@ -16,7 +15,7 @@ export const BookReducer = (state: BookTypes = initialState, action: BookActionT
         case ADD_BOOK:
             return {
                 ...state,
-                books: [...state.books, action.payload]
+                books: [action.payload, ...state.books]
             }
         case DELETE_BOOK:
             return {
@@ -29,6 +28,11 @@ export const BookReducer = (state: BookTypes = initialState, action: BookActionT
             return {
                 ...state,
                 books: newBookArray
+            }
+        case FETCH_ALL_BOOKS:
+            return {
+                ...state,
+                books: action.payload
             }
         default:
             return state

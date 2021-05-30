@@ -7,7 +7,7 @@ import {RootState} from "../../store/reducers";
 type BooksProps = {
     onBookEdit: (bookNo: number) => void,
     books: IBook[],
-    onBookDelete: (bookNo: number) => void
+    onBookDelete: (bookId: string) => void
 }
 
 const BookList: React.FC<BooksProps> = (props) => {

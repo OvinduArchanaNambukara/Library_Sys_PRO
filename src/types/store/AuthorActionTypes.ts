@@ -1,5 +1,5 @@
 import {IAuthor} from "../LibraryTypes";
-import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../../store/constants/AuthorConstants";
+import {ADD_AUTHOR, DELETE_AUTHOR, FETCH_ALL_AUTHORS, UPDATE_AUTHOR} from "../../store/constants/AuthorConstants";
 
 export interface AddAuthor {
     type: typeof ADD_AUTHOR,
@@ -19,10 +19,14 @@ export interface UpdateAuthor {
         updateAuthor: IAuthor,
         authorIndex: number
     }
-
 }
 
-export type AuthorActionTypes = AddAuthor | DeleteAuthor | UpdateAuthor;
+export interface FetchAllAuthors {
+    type: typeof FETCH_ALL_AUTHORS,
+    payload: IAuthor[]
+}
+
+export type AuthorActionTypes = AddAuthor | DeleteAuthor | UpdateAuthor | FetchAllAuthors;
 
 
 

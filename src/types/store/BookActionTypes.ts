@@ -1,4 +1,4 @@
-import {ADD_BOOK, DELETE_BOOK, UPDATE_BOOK} from "../../store/constants/BookConstants";
+import {ADD_BOOK, DELETE_BOOK, FETCH_ALL_BOOKS, UPDATE_BOOK} from "../../store/constants/BookConstants";
 import {IBook} from "../LibraryTypes";
 
 export interface AddBook {
@@ -21,5 +21,9 @@ export interface UpdateBook {
     }
 }
 
+export interface FetchAllBooks {
+    type: typeof FETCH_ALL_BOOKS,
+    payload: IBook[]
+}
 
-export type BookActionTypes = AddBook | DeleteBook | UpdateBook;
+export type BookActionTypes = AddBook | DeleteBook | UpdateBook | FetchAllBooks;

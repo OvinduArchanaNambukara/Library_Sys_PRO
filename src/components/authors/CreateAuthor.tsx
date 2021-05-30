@@ -3,6 +3,9 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import {IAuthor} from "../../types/LibraryTypes";
 import {useDispatch} from "react-redux";
 import {addAuthor} from "../../store/actions/AuthorActions";
+import {useMutation} from "@apollo/client";
+import {CREATE_AUTHOR} from "../../graphql/mutation/Authors";
+import {GET_ALL_AUTHORS} from "../../graphql/query/Authors";
 
 type CreateAuthorProps = {
     onEditorClosed: (val: boolean) => void
@@ -12,13 +15,20 @@ const CreateAuthor: React.FC<CreateAuthorProps> = (props) => {
     const [authorName, setAuthorName] = useState<string | null>(null);
     const [validated, setValidated] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const [createAuthor, {data}] = useMutation(CREATE_AUTHOR);
 
     const handleOnSubmit = (e: FormEvent) => {
         e.preventDefault();
         e.stopPropagation();
         if (authorName !== null && authorName !== '') {
-            const newAuthor: IAuthor = {name: authorName};
-            dispatch(addAuthor(newAuthor));
+            //const newAuthor: IAuthor = {name: authorName};
+            //dispatch(addAuthor(newAuthor));
+            createAuthor({
+                variables: {
+                    authorName: authorName
+                },
+                refetchQueries: [{query: GET_ALL_AUTHORS}]
+            });
             setAuthorName(null);
             props.onEditorClosed(false);
             setValidated(false);

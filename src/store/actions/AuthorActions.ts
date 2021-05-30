@@ -1,5 +1,5 @@
 import {AuthorActionTypes} from "../../types/store/AuthorActionTypes";
-import {ADD_AUTHOR, DELETE_AUTHOR, UPDATE_AUTHOR} from "../constants/AuthorConstants";
+import {ADD_AUTHOR, DELETE_AUTHOR, FETCH_ALL_AUTHORS, UPDATE_AUTHOR} from "../constants/AuthorConstants";
 import {IAuthor} from "../../types/LibraryTypes";
 
 export const addAuthor = (newAuthor: IAuthor): AuthorActionTypes => {
@@ -25,5 +25,12 @@ export const deleteAuthor = (index: number): AuthorActionTypes => {
         payload: {
             authorIndex: index
         }
+    }
+}
+
+export const fetchAllAuthors = (allAuthors: IAuthor[]): AuthorActionTypes => {
+    return {
+        type: FETCH_ALL_AUTHORS,
+        payload: allAuthors
     }
 }

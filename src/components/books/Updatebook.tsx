@@ -5,6 +5,8 @@ import {IAuthor, IBook} from "../../types/LibraryTypes";
 import Swal from "sweetalert2";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store/reducers";
+import {useMutation} from "@apollo/client";
+import {UPDATE_BOOK} from "../../graphql/mutation/Books";
 
 type UpdateBookProps = {
     selectedBook: IBook,
@@ -15,27 +17,27 @@ type UpdateBookProps = {
 type optionTypes = { label: string, value: string }
 
 const UpdateBook: React.FC<UpdateBookProps> = (props) => {
-    const [title, setTitle] = useState<string>(props.selectedBook.title);
-    const [isbn, setISBN] = useState<string>(props.selectedBook.isbn);
+    const [title, setTitle] = useState<string>(props.selectedBook.book_name);
+    const [isbn, setISBN] = useState<string>(props.selectedBook.book_isbn);
     const [author, setAuthor] = useState<string | null>(null)
     const [selectedAuthor, setSelectedAuthor] = useState<optionTypes | null>
-            ({label:props.selectedBook.author.name, value:props.selectedBook.author.name});
+    ({label: props.selectedBook.author, value: props.selectedBook.author});
     const [validated, setValidated] = useState(false);
     const [selectorColor, setSelectorColor] = useState<string>('#989898');
     const authors = useSelector((state: RootState) => state.authorReducer.authors);
 
     useEffect(() => {
-        setTitle(props.selectedBook.title);
-        setISBN(props.selectedBook.isbn);
-        setSelectedAuthor({label:props.selectedBook.author.name, value:props.selectedBook.author.name});
-    },[props.selectedBook])
+        setTitle(props.selectedBook.book_name);
+        setISBN(props.selectedBook.book_isbn);
+        setSelectedAuthor({label: props.selectedBook.author, value: props.selectedBook.author});
+    }, [props.selectedBook])
 
     const onBookSubmit = (event: FormEvent) => {
         event.preventDefault();
         if (title == null || isbn == null || author == null || title == '' || isbn == '' || author == '') {
             setValidated(true);
             author == null || author == '' ? setSelectorColor('#f80046') : setSelectorColor('#989898');
-        }else{
+        } else {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -57,10 +59,15 @@ const UpdateBook: React.FC<UpdateBookProps> = (props) => {
                         'Book has been updated.',
                         'success'
                     )
-                    const book: IBook = {title: title, isbn: isbn, author: {name: author}};
+                    const book: IBook = {
+                        book_name: title,
+                        book_isbn: isbn,
+                        author: author,
+                        _id: props.selectedBook._id
+                    };
                     props.onBookUpdate(book);
                     setValidated(false);
-                }else if (
+                } else if (
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
@@ -79,24 +86,24 @@ const UpdateBook: React.FC<UpdateBookProps> = (props) => {
     });
 
     const handleSelectAuthor = (selectAuthor: ValueType<optionTypes>) => {
-        if(selectAuthor == null){
+        if (selectAuthor == null) {
             setSelectedAuthor(null);
             setAuthor(null);
-        }else {
+        } else {
             const value = (selectAuthor as optionTypes).value;
             const label = (selectAuthor as optionTypes).label;
-            setSelectedAuthor({label:label ,value:value});
+            setSelectedAuthor({label: label, value: value});
             setAuthor(value);
             onChangeValidation();
         }
     }
 
-    const onChangeTitle = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
         onChangeValidation();
     }
 
-    const onChangeISBN = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeISBN = (e: React.ChangeEvent<HTMLInputElement>) => {
         setISBN(e.target.value);
         onChangeValidation();
     }
@@ -114,19 +121,19 @@ const UpdateBook: React.FC<UpdateBookProps> = (props) => {
         setSelectorColor('#989898');
     }
 
-    return(
+    return (
         <div className="create-book">
             <Form.Row>
                 <Col className="text-left pl-1 mb-3">
                     <span>Update Book</span>
                 </Col>
-                <Col  className="text-right">
+                <Col className="text-right">
                     <i className='feather icon-x-circle text-dark text-right' onClick={() => props.onEditorClose()}/>
                 </Col>
             </Form.Row>
             <Form className="pl-5" onSubmit={onBookSubmit} noValidate validated={validated}>
                 <Form.Row>
-                    <Form.Group controlId="titleSelectID"  className="form-bootstrap-area">
+                    <Form.Group controlId="titleSelectID" className="form-bootstrap-area">
                         <Form.Label>Title of Book</Form.Label>
                         <Form.Control required type="text" value={title} className="form-input" placeholder=""
                                       onChange={onChangeTitle}/>
@@ -142,7 +149,7 @@ const UpdateBook: React.FC<UpdateBookProps> = (props) => {
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
-                    <Form.Group controlId="authorSelectID"  className="form-bootstrap-area">
+                    <Form.Group controlId="authorSelectID" className="form-bootstrap-area">
                         <Form.Label>Author</Form.Label>
                         <Select
                             value={selectedAuthor}
@@ -154,7 +161,8 @@ const UpdateBook: React.FC<UpdateBookProps> = (props) => {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Button size='sm' type={"submit"} variant='primary' className='float-right create-button'>Update</Button>
+                <Button size='sm' type={"submit"} variant='primary'
+                        className='float-right create-button'>Update</Button>
             </Form>
         </div>
     );

@@ -1,6 +1,7 @@
 import {BookActionTypes} from "../../types/store/BookActionTypes";
-import {ADD_BOOK, DELETE_BOOK, UPDATE_BOOK} from "../constants/BookConstants";
+import {ADD_BOOK, DELETE_BOOK, FETCH_ALL_BOOKS, UPDATE_BOOK} from "../constants/BookConstants";
 import {IBook} from "../../types/LibraryTypes";
+
 
 export const addBook = (newBook: IBook): BookActionTypes => {
     return {
@@ -25,5 +26,11 @@ export const updateBook = (updateBook: IBook, bookIndex: number): BookActionType
             updateBook: updateBook,
             bookIndex: bookIndex
         }
+    }
+}
+export const fetchAllBooks = (allBooks: IBook[]): BookActionTypes => {
+    return {
+        type: FETCH_ALL_BOOKS,
+        payload: allBooks
     }
 }
